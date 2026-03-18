@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ShadowArchive</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      width: 300px;
+      background: #0d1117;
+      color: #ffffff;
+      margin: 0;
+      padding: 10px;
+      font-family: system-ui, sans-serif;
+      font-size: 12px;
+    }
+    h2 {
+      color: #ffffff;
+      font-size: 15px;
+      text-align: center;
+      margin: 0 0 8px;
+    }
+    .url-box { position: relative; margin-bottom: 8px; }
+    #urlInput {
+      width: 100%;
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 5px;
+      padding: 6px 6px 6px 28px;
+      color: #ffffff;
+      font-size: 12px;
+      height: 28px;
+      box-sizing: border-box;
+    }
+    #urlInput::placeholder { color: #aaaaaa; }
+    .chain-icon {
+      position: absolute;
+      left: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #cccccc;
+      font-size: 13px;
+    }
+
+    .filters { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 8px; }
+    select {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 5px;
+      padding: 5px;
+      font-size: 11px;
+      color: #ffffff;
+    }
+
+    .custom-ext { margin-bottom: 8px; }
+    #customExt {
+      width: 100%;
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 5px;
+      padding: 5px;
+      font-size: 11px;
+      color: #ffffff;
+    }
+    #customExt::placeholder { color: #aaaaaa; }
+
+    .btn {
+      display: flex;
+      width: 100%;
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 5px;
+      margin-bottom: 4px;
+      height: 38px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color .12s;
+    }
+    .btn:hover { border-color: #58a6ff; }
+    .color-bar { width: 4px; flex-shrink: 0; }
+    .btn-content { flex: 1; display: flex; align-items: center; padding: 0 8px; gap: 8px; }
+    .emoji-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+    }
+    .btn-title {
+      font-weight: 500;
+      color: #ffffff;
+      font-size: 12.5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .btn-subtitle {
+      font-size: 10px;
+      color: #e0e0e0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    #previewBtn {
+      background: #21262d;
+      border: 1px solid #58a6ff;
+      color: #ffffff;
+      font-weight: 600;
+      height: 34px;
+      margin: 8px 0 4px;
+      width: 100%;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #previewBtn:hover { background: #58a6ff; color: #000000; }
+
+    #previewPanel {
+      display: none;
+      border: 1px solid #30363d;
+      border-radius: 6px;
+      margin-top: 8px;
+      max-height: 220px;
+      overflow: auto;
+      background: #161b22;
+      font-size: 11px;
+    }
+    .preview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 8px;
+      border-bottom: 1px solid #30363d;
+      background: #0d1117;
+      position: sticky;
+      top: 0;
+      color: #ffffff;
+    }
+    .result-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 8px;
+      border-bottom: 1px solid #21262d;
+      color: #ffffff;
+    }
+    .timestamp { color: #dddddd; width: 70px; font-size: 10px; }
+    .status {
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-size: 10px;
+      color: #ffffff;
+    }
+    .juicy {
+      background: #f59e0b30;
+      color: #ffffff;
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-size: 9px;
+      font-weight: 600;
+    }
+    .url-text {
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      cursor: pointer;
+      color: #a5d6ff;
+    }
+    .url-text:hover { text-decoration: underline; color: #ffffff; }
+
+    .other-archives {
+      display: flex;
+      gap: 6px;
+      padding: 8px;
+      font-size: 10px;
+      flex-wrap: wrap;
+    }
+    .other-btn {
+      background: #21262d;
+      color: #ffffff;
+      border: 1px solid #30363d;
+      padding: 3px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 10px;
+    }
+    .footer {
+      text-align: center;
+      font-size: 10px;
+      color: #dddddd;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>ShadowArchive</h2>
+
+  <div class="url-box">
+    <i class="fa-solid fa-link chain-icon"></i>
+    <input id="urlInput" type="text" placeholder="https://example.com">
+  </div>
+
+  <div class="filters">
+    <select id="statusFilter">
+      <option value="">Any status</option>
+      <option value="&filter=statuscode:200">200 OK</option>
+      <option value="&filter=statuscode:200|301|302">200+Redirects</option>
+      <option value="&filter=!statuscode:404">No 404</option>
+      <option value="&filter=statuscode:403|401">403/401</option>
+    </select>
+    <select id="mimeFilter">
+      <option value="">Any type</option>
+      <option value="&filter=mimetype:text/html">HTML</option>
+      <option value="&filter=mimetype:application/javascript">JS</option>
+      <option value="&filter=mimetype:application/json">JSON</option>
+      <option value="&filter=mimetype:text/plain">Text</option>
+    </select>
+  </div>
+
+  <div class="custom-ext">
+    <input id="customExt" type="text" placeholder="Custom ext (Sensitive only): .toml,.ps1,.kubeconfig">
+  </div>
+
+  <button id="domainBtn" class="btn">
+    <div class="color-bar" style="background:#58a6ff"></div>
+    <div class="btn-content">
+      <div class="emoji-icon" style="color:#58a6ff">🌐</div>
+      <div>
+        <div class="btn-title">Main Domain URLs</div>
+        <div class="btn-subtitle">example.com/*</div>
+      </div>
+    </div>
+  </button>
+
+  <button id="wildcardBtn" class="btn">
+    <div class="color-bar" style="background:#3fb950"></div>
+    <div class="btn-content">
+      <div class="emoji-icon" style="color:#3fb950">*</div>
+      <div>
+        <div class="btn-title">Wildcard Domain URLs</div>
+        <div class="btn-subtitle">*.example.com/*</div>
+      </div>
+    </div>
+  </button>
+
+  <button id="pathBtn" class="btn">
+    <div class="color-bar" style="background:#f85149"></div>
+    <div class="btn-content">
+      <div class="emoji-icon" style="color:#f85149">📁</div>
+      <div>
+        <div class="btn-title">Specific Path URLs</div>
+        <div class="btn-subtitle">example.com/path/*</div>
+      </div>
+    </div>
+  </button>
+
+  <button id="sensitiveBtn" class="btn">
+    <div class="color-bar" style="background:#db61a2"></div>
+    <div class="btn-content">
+      <div class="emoji-icon" style="color:#db61a2">🔒</div>
+      <div>
+        <div class="btn-title">Sensitive Hunt</div>
+        <div class="btn-subtitle">.env • .bak • keys</div>
+      </div>
+    </div>
+  </button>
+
+  <button id="paramBtn" class="btn">
+    <div class="color-bar" style="background:#f59e0b"></div>
+    <div class="btn-content">
+      <div class="emoji-icon" style="color:#f59e0b">🔍</div>
+      <div>
+        <div class="btn-title">Parameter Hunting</div>
+        <div class="btn-subtitle">?key= ?token=</div>
+      </div>
+    </div>
+  </button>
+
+  <button id="previewBtn" class="btn">👁️ Preview Results (max 50) + Copy All</button>
+
+  <div id="previewPanel">
+    <div class="preview-header">
+      <span id="previewTitle">Results</span>
+      <button id="copyAllBtn" style="background:#21262d;color:#ffffff;border:none;padding:2px 8px;border-radius:4px;font-size:10px;cursor:pointer;">Copy All URLs</button>
+    </div>
+    <div id="resultsList"></div>
+    <div class="other-archives">
+      <button class="other-btn" onclick="openArchiveToday()">archive.today</button>
+      <button class="other-btn" onclick="openUrlscan()">urlscan.io</button>
+      <button class="other-btn" onclick="openOTX()">AlienVault OTX</button>
+      <button class="other-btn" onclick="openCrtsh()">crt.sh</button>
+      <button class="other-btn" onclick="openSecurityTrails()">SecurityTrails</button>
+    </div>
+  </div>
+
+  <div class="footer">+ Made by @AgentZeroX +</div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
