@@ -39,8 +39,4 @@ A specialized reconnaissance extension designed to unearth archived URLs and sen
 
 2.  **Parameter Hunting:**
    ```Plaintext
-  [https://web.archive.org/cdx/search/cdx?url=*.example.com/*&filter=original](https://web.archive.org/cdx/search/cdx?url=*.example.com/*&filter=original):.*\\?.*(key|token|auth|secret)```
-
-
-    
-    
+   [https://web.archive.org/cdx/search/cdx?url=*.example.com/*&filter=original](https://web.archive.org/cdx/search/cdx?url=*.example.com/*&filter=original):.*\\.(env|bak|sql|key|config|token)```    
