@@ -25,3 +25,10 @@ A specialized reconnaissance extension designed to unearth archived URLs and sen
 4. Click "Load unpacked" and select the folder where you saved the project.
 5. The ShadowArchive icon will now appear in your Chrome toolbar.
 
+## Usage
+1. Navigate to the target webpage.
+2. Click the ShadowArchive icon in your toolbar.
+3. Select your preferred search mode (e.g., Sensitive Hunt).
+4. Use the Preview Results button to view the top 50 matches or click a mode to open the full raw results in a new tab.
+5. Use "Copy All URLs" to instantly move your findings into other tools like httpx or nuclei.
+
