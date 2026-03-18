@@ -32,7 +32,6 @@ A specialized reconnaissance Chrome extension designed to unearth archived URLs 
 2. Click the ShadowArchive icon in your toolbar.
 3. Select your preferred search mode (e.g., Sensitive Hunt).
 4. Use the Preview Results button to view the top 50 matches or click a mode to open the full raw results in a new tab.
-5. Use "Copy All URLs" to instantly move your findings into other tools like httpx or nuclei.
 
 ---
 
@@ -53,3 +52,10 @@ Pull requests are welcome! Feel free to suggest new features, UI improvements, o
 
 ## Author
 AgentZeroX - Penetration Tester & Security Researcher
+
+---
+
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+
