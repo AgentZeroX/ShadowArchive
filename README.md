@@ -32,10 +32,8 @@ A specialized reconnaissance extension designed to unearth archived URLs and sen
 4. Use the Preview Results button to view the top 50 matches or click a mode to open the full raw results in a new tab.
 5. Use "Copy All URLs" to instantly move your findings into other tools like httpx or nuclei.
 
-## Example Queries
+### Example Queries
+
 1. **Sensitive Hunt:**
-    ```Plaintext
-   [https://web.archive.org/cdx/search/cdx?url=*.example.com/*&filter=original](https://web.archive.org/cdx/search/cdx?url=*.example.com/*&filter=original):.*\\.(env|bak|sql|key|config|token)```
-2.  **Parameter Hunting:**
-   ```Plaintext
-   [https://web.archive.org/cdx/search/cdx?url=*.example.com/*&filter=original](https://web.archive.org/cdx/search/cdx?url=*.example.com/*&filter=original):.*\\.(env|bak|sql|key|config|token)```    
+   ```text
+   [https://web.archive.org/cdx/search/cdx?url=*.example.com/*&filter=original](https://web.archive.org/cdx/search/cdx?url=*.example.com/*&filter=original):.*\\.(env|bak|sql|key|config|token)
