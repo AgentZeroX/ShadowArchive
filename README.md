@@ -37,7 +37,12 @@ A specialized reconnaissance Chrome extension designed to unearth archived URLs 
 1. **Sensitive Hunt:**
    ```text
    [https://web.archive.org/cdx/search/cdx?url=*.example.com/*&filter=original](https://web.archive.org/cdx/search/cdx?url=*.example.com/*&filter=original):.*\\.(env|bak|sql|key|config|token)
-
 2. **Parameter Hunting:**
       ```text
    [https://web.archive.org/cdx/search/cdx?url=*.example.com/*&filter=original](https://web.archive.org/cdx/search/cdx?url=*.example.com/*&filter=original):.*\\?.*(key|token|auth|secret)
+
+### Contributing
+Pull requests are welcome! Feel free to suggest new features, UI improvements, or custom sensitive file signatures via GitHub issues.
+
+### Author
+AgentZeroX - Penetration Tester & Security Researcher
