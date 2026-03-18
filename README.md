@@ -34,4 +34,5 @@ A specialized reconnaissance extension designed to unearth archived URLs and sen
 
 ## Example Queries
 1. **Sensitive Hunt:**
-    ```[https://web.archive.org/cdx/search/cdx?url=*.example.com/*&filter=original](https://web.archive.org/cdx/search/cdx?url=*.example.com/*&filter=original):.*\\.(env|bak|sql|key|config|token)```
+    ```Plaintext
+   [https://web.archive.org/cdx/search/cdx?url=*.example.com/*&filter=original](https://web.archive.org/cdx/search/cdx?url=*.example.com/*&filter=original):.*\\.(env|bak|sql|key|config|token)```
