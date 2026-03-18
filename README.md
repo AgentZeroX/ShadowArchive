@@ -1,6 +1,6 @@
 # ShadowArchive
 
-A specialized reconnaissance extension designed to unearth archived URLs and sensitive files. Perfect for penetration testers, bug hunters, and security researchers looking for historical data leaks.
+A specialized reconnaissance Chrome extension designed to unearth archived URLs and sensitive files. Perfect for penetration testers, bug hunters, and security researchers looking for historical data leaks.
 
 ## Features
 * **Instant Archive Discovery:** Quickly fetch and filter archived URLs directly from the Wayback Machine CDX API.
@@ -37,3 +37,7 @@ A specialized reconnaissance extension designed to unearth archived URLs and sen
 1. **Sensitive Hunt:**
    ```text
    [https://web.archive.org/cdx/search/cdx?url=*.example.com/*&filter=original](https://web.archive.org/cdx/search/cdx?url=*.example.com/*&filter=original):.*\\.(env|bak|sql|key|config|token)
+
+2. **Parameter Hunting:**
+      ```text
+   [https://web.archive.org/cdx/search/cdx?url=*.example.com/*&filter=original](https://web.archive.org/cdx/search/cdx?url=*.example.com/*&filter=original):.*\\?.*(key|token|auth|secret)
