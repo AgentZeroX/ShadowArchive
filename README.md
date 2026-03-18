@@ -32,3 +32,4 @@ A specialized reconnaissance extension designed to unearth archived URLs and sen
 4. Use the Preview Results button to view the top 50 matches or click a mode to open the full raw results in a new tab.
 5. Use "Copy All URLs" to instantly move your findings into other tools like httpx or nuclei.
 
+## Example Queries
