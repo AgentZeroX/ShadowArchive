@@ -25,12 +25,16 @@ A specialized reconnaissance Chrome extension designed to unearth archived URLs 
 4. Click "Load unpacked" and select the folder where you saved the project.
 5. The ShadowArchive icon will now appear in your Chrome toolbar.
 
+---
+
 ## Usage
 1. Navigate to the target webpage.
 2. Click the ShadowArchive icon in your toolbar.
 3. Select your preferred search mode (e.g., Sensitive Hunt).
 4. Use the Preview Results button to view the top 50 matches or click a mode to open the full raw results in a new tab.
 5. Use "Copy All URLs" to instantly move your findings into other tools like httpx or nuclei.
+
+---
 
 ### Example Queries
 
@@ -41,8 +45,12 @@ A specialized reconnaissance Chrome extension designed to unearth archived URLs 
       ```text
    [https://web.archive.org/cdx/search/cdx?url=*.example.com/*&filter=original](https://web.archive.org/cdx/search/cdx?url=*.example.com/*&filter=original):.*\\?.*(key|token|auth|secret)
 
-### Contributing
+---
+
+## Contributing
 Pull requests are welcome! Feel free to suggest new features, UI improvements, or custom sensitive file signatures via GitHub issues.
 
-### Author
+---
+
+## Author
 AgentZeroX - Penetration Tester & Security Researcher
