@@ -44,7 +44,6 @@ A specialized reconnaissance Chrome extension designed to unearth archived URLs 
 2. **Parameter Hunting:**
       ```text
    [https://web.archive.org/cdx/search/cdx?url=*.example.com/*&filter=original](https://web.archive.org/cdx/search/cdx?url=*.example.com/*&filter=original):.*\\?.*(key|token|auth|secret)
-
 ---
 
 ## Contributing
