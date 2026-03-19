@@ -45,6 +45,10 @@ A specialized reconnaissance Chrome extension designed to unearth archived URLs 
    [https://web.archive.org/cdx/search/cdx?url=*.example.com/*&filter=original](https://web.archive.org/cdx/search/cdx?url=*.example.com/*&filter=original):.*\\?.*(key|token|auth|secret)
 ---
 
+![ShadowArchive Interface](screenshot.png)
+
+---
+
 ## Contributing
 Pull requests are welcome! Feel free to suggest new features, UI improvements, or custom sensitive file signatures via GitHub issues.
 
