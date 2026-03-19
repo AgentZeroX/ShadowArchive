@@ -48,7 +48,7 @@ A specialized reconnaissance Chrome extension designed to unearth archived URLs 
 
 ### Screenshots
 <p align="center">
-  <img src="screenshot.png" alt="ShadowArchive Interface" width="500">
+  <img src="screenshot.png" alt="ShadowArchive Interface" width="300">
 </p>
 
 ---
