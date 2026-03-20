@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ShadowArchive</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #58a6ff;
+      --primary-dark: #388bfd;
+      --bg: #0d1117;
+      --card-bg: #161b22;
+      --border: #30363d;
+      --text: #c9d1d9;
+      --text-light: #8b949e;
+      --success: #3fb950;
+      --warning: #f59e0b;
+      --danger: #f85149;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 520px;                  /* ← increased popup width for comfort */
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, sans-serif;
+      font-size: 13px;
+      padding: 16px;
+      line-height: 1.5;
+    }
+
+    h2 {
+      color: #ffffff;
+      font-size: 18px;               /* ← slightly larger title */
+      text-align: center;
+      margin: 0 0 16px;
+      font-weight: 600;
+    }
+
+    .url-box {
+      position: relative;
+      margin-bottom: 12px;
+    }
+
+    #urlInput {
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px 10px 10px 36px;  /* ← space for icon */
+      color: #ffffff;
+      font-size: 13px;
+      height: 36px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    #urlInput:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.15);
+    }
+
+    #urlInput::placeholder {
+      color: var(--text-light);
+    }
+
+    .chain-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-light);
+      font-size: 15px;
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    select {
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 12px;
+      color: #ffffff;
+      appearance: none;
+    }
+
+    .custom-ext {
+      margin-bottom: 12px;
+    }
+
+    #customExt {
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px 12px;
+      font-size: 12px;
+      color: #ffffff;
+    }
+
+    #customExt::placeholder {
+      color: var(--text-light);
+    }
+
+    .btn {
+      display: flex;
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      margin-bottom: 8px;
+      height: 44px;                  /* ← taller buttons */
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn:hover {
+      border-color: var(--primary);
+      background: rgba(88, 166, 255, 0.08);
+    }
+
+    .color-bar {
+      width: 5px;
+      flex-shrink: 0;
+    }
+
+    .btn-content {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      gap: 10px;
+    }
+
+    .emoji-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+    }
+
+    .btn-title {
+      font-weight: 600;
+      color: #ffffff;
+      font-size: 13.5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .btn-subtitle {
+      font-size: 11px;
+      color: var(--text-light);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    #previewBtn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      font-weight: 600;
+      height: 40px;
+      margin: 12px 0 8px;
+      width: 100%;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.2s;
+    }
+
+    #previewBtn:hover {
+      background: var(--primary-dark);
+    }
+
+    #previewPanel {
+      display: none;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-top: 12px;
+      max-height: 260px;
+      overflow: auto;
+      background: var(--card-bg);
+      font-size: 12px;
+    }
+
+    .preview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+      background: #0d1117;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
+    .result-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-bottom: 1px solid #21262d;
+    }
+
+    .timestamp { color: #8b949e; width: 80px; font-size: 11px; }
+    .status {
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      color: white;
+    }
+    .juicy {
+      background: #f59e0b30;
+      color: #f59e0b;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 600;
+    }
+    .url-text {
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      cursor: pointer;
+      color: #a5d6ff;
+    }
+    .url-text:hover {
+      text-decoration: underline;
+      color: #ffffff;
+    }
+
+    .other-archives {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 12px;
+      font-size: 11px;
+    }
+
+    .other-btn {
+      background: #21262d;
+      color: #ffffff;
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 11px;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 11px;
+      color: #8b949e;
+      margin-top: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h2>ShadowArchive</h2>
+
+  <div class="url-box">
+    <i class="fa-solid fa-link chain-icon"></i>
+    <input id="urlInput" type="text" placeholder="https://example.com">
+  </div>
+
+  <div class="filters">
+    <select id="statusFilter">
+      <option value="">Any status</option>
+      <option value="&filter=statuscode:200">200 OK</option>
+      <option value="&filter=statuscode:200|301|302">200+Redirects</option>
+      <option value="&filter=!statuscode:404">No 404</option>
+      <option value="&filter=statuscode:403|401">403/401</option>
+    </select>
+
+    <select id="mimeFilter">
+      <option value="">Any type</option>
+      <option value="&filter=mimetype:text/html">HTML</option>
+      <option value="&filter=mimetype:application/javascript">JS</option>
+      <option value="&filter=mimetype:application/json">JSON</option>
+      <option value="&filter=mimetype:text/plain">Text</option>
+    </select>
+  </div>
+
+  <div class="custom-ext">
+    <input id="customExt" type="text" placeholder="Custom ext (Sensitive only): .toml,.ps1,.kubeconfig">
+  </div>
+
+  <button id="domainBtn" class="btn">
+    <div class="color-bar" style="background:#58a6ff"></div>
+    <div class="btn-content">
+      <div class="emoji-icon" style="color:#58a6ff">🌐</div>
+      <div>
+        <div class="btn-title">Main Domain URLs</div>
+        <div class="btn-subtitle">example.com/*</div>
+      </div>
+    </div>
+  </button>
+
+  <button id="wildcardBtn" class="btn">
+    <div class="color-bar" style="background:#3fb950"></div>
+    <div class="btn-content">
+      <div class="emoji-icon" style="color:#3fb950">*</div>
+      <div>
+        <div class="btn-title">Wildcard Domain URLs</div>
+        <div class="btn-subtitle">*.example.com/*</div>
+      </div>
+    </div>
+  </button>
+
+  <button id="pathBtn" class="btn">
+    <div class="color-bar" style="background:#f85149"></div>
+    <div class="btn-content">
+      <div class="emoji-icon" style="color:#f85149">📁</div>
+      <div>
+        <div class="btn-title">Specific Path URLs</div>
+        <div class="btn-subtitle">example.com/path/*</div>
+      </div>
+    </div>
+  </button>
+
+  <button id="sensitiveBtn" class="btn">
+    <div class="color-bar" style="background:#db61a2"></div>
+    <div class="btn-content">
+      <div class="emoji-icon" style="color:#db61a2">🔒</div>
+      <div>
+        <div class="btn-title">Sensitive Hunt</div>
+        <div class="btn-subtitle">.env • .bak • keys</div>
+      </div>
+    </div>
+  </button>
+
+  <button id="paramBtn" class="btn">
+    <div class="color-bar" style="background:#f59e0b"></div>
+    <div class="btn-content">
+      <div class="emoji-icon" style="color:#f59e0b">🔍</div>
+      <div>
+        <div class="btn-title">Parameter Hunting</div>
+        <div class="btn-subtitle">?key= ?token=</div>
+      </div>
+    </div>
+  </button>
+
+  <button id="previewBtn">👁️ Preview Results (max 50) + Copy All</button>
+
+  <div id="previewPanel">
+    <div class="preview-header">
+      <span id="previewTitle">Results</span>
+      <button id="copyAllBtn" style="background:#21262d;color:#ffffff;border:none;padding:4px 10px;border-radius:4px;font-size:11px;cursor:pointer;">Copy All URLs</button>
+    </div>
+    <div id="resultsList"></div>
+
+    <div class="other-archives">
+      <button class="other-btn" onclick="openArchiveToday()">archive.today</button>
+      <button class="other-btn" onclick="openUrlscan()">urlscan.io</button>
+      <button class="other-btn" onclick="openOTX()">AlienVault OTX</button>
+      <button class="other-btn" onclick="openCrtsh()">crt.sh</button>
+      <button class="other-btn" onclick="openSecurityTrails()">SecurityTrails</button>
+    </div>
+  </div>
+
+  <div class="footer">+ Made by @AgentZeroX +</div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
